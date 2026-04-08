@@ -358,6 +358,11 @@ tr:hover td{background:var(--g50);color:var(--text);}
     <button class="login-btn" onclick="doLogin()">Ingresar</button>
     <div class="login-error" id="login-err"></div>
     <div class="login-guest" onclick="doGuest()">👁 Acceso de solo lectura (invitado)</div>
+    <div style="margin-top:18px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;font-size:.7rem;color:#475569;line-height:2">
+      <div><strong style="color:#64748B">admin</strong> — Acceso completo · configuración</div>
+      <div><strong style="color:#64748B">kam</strong> — KAM / Experto en prevención</div>
+      <div><strong style="color:#64748B">invitado</strong> — Solo lectura · sin edición</div>
+    </div>
   </div>
   <div class="login-copyright">
     <strong>© 2025 Branco — "null"</strong><br>
@@ -1160,15 +1165,12 @@ tr:hover td{background:var(--g50);color:var(--text);}
 <div class="page" id="page-kam">
   <div class="ph">
     <div>
-      <div class="ph-title" id="kam-page-title">Reporte Ejecutivo KAM</div>
-      <div class="ph-sub">Vista estratégica · Metas configurables · Presentación a gerencia</div>
+      <div class="ph-title" id="kam-page-title">⭐ KAM — Reporte Ejecutivo</div>
+      <div class="ph-sub" id="kam-page-sub">Vista estratégica · Metas configurables · Presentación a gerencia</div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <div style="display:flex;border:1.5px solid var(--g200);border-radius:var(--r);overflow:hidden">
-        <button onclick="setKAMMode('kam')" id="km-btn-kam" style="padding:6px 14px;font-size:.73rem;font-weight:700;background:var(--primary);color:#fff;border:none;cursor:pointer">KAM</button>
-        <button onclick="setKAMMode('gerencia')" id="km-btn-ger" style="padding:6px 14px;font-size:.73rem;font-weight:700;background:var(--surface);color:var(--text2);border:none;cursor:pointer">Gerencia ACHS</button>
-      </div>
-      <button onclick="generateKAMReport()" class="btn-primary" style="font-size:.78rem;padding:8px 16px;font-weight:700">🖨️ Generar Informe PDF</button>
+      <span class="chip chip-dot" id="kam-user-chip" style="display:none">👤 —</span>
+      <button onclick="generateKAMReport()" class="btn-primary" style="font-size:.78rem;padding:8px 18px;font-weight:700">🖨️ Generar Informe PDF</button>
     </div>
   </div>
 
@@ -3930,6 +3932,12 @@ function renderKAM(){
   var per=(document.getElementById('km-per')||{value:'ytd'}).value;
   var perLbls={ytd:'Año en curso (YTD)',mes:'Mes actual',trim:'Último trimestre',ds67:'Período DS67 (jul–jun)',anual:'Año completo',todo:'Histórico total'};
   document.getElementById('km-period-badge').textContent=(perLbls[per]||per).toUpperCase();
+  // Update page subtitle with user context
+  var subEl=document.getElementById('kam-page-sub');
+  if(subEl){
+    var roleLabel=getCurrentLabel();
+    subEl.textContent='Vista estratégica · '+roleLabel+' · Metas configurables · Presentación a gerencia';
+  }
   // Update formula note for metas
   var now2=new Date(), cm2=now2.getMonth()+1;
   var formulaMap={
@@ -4153,23 +4161,62 @@ function generateKAMReport(){
    LOGIN & AUTH
 ══════════════════════════════════════════ */
 var CURRENT_USER = null;
-var USERS = { 'admin':{ pass:'admin', role:'admin' }, 'kam':{ pass:'kamtest', role:'admin' }, 'guest':{ pass:'guest123', role:'guest' } };
+function setKAMMode(m){} // legacy stub — mode unified
+// ── USERS: role = 'admin' | 'kam' | 'guest'
+var USERS = {
+  'admin': { pass:'admin',    role:'admin', label:'Administrador' },
+  'kam':   { pass:'kamtest',  role:'kam',   label:'KAM / Experto' },
+  'guest': { pass:'guest123', role:'guest', label:'Invitado (solo lectura)' }
+};
 
 function doLogin(){
   var u=(document.getElementById('login-user').value||'').trim().toLowerCase();
   var p=document.getElementById('login-pass').value||'';
   var err=document.getElementById('login-err');
-  if(!USERS[u]||USERS[u].pass!==p){ err.textContent='❌ Usuario o contraseña incorrectos'; document.getElementById('login-pass').value=''; return; }
-  CURRENT_USER=USERS[u].role; err.textContent=''; launchApp();
+  if(!USERS[u]||USERS[u].pass!==p){
+    err.textContent='❌ Usuario o contraseña incorrectos';
+    document.getElementById('login-pass').value='';
+    return;
+  }
+  CURRENT_USER=u; // store username, not role
+  err.textContent='';
+  launchApp();
 }
 function doGuest(){ CURRENT_USER='guest'; launchApp(); }
+
+function getCurrentRole(){ return USERS[CURRENT_USER]?USERS[CURRENT_USER].role:'guest'; }
+function getCurrentLabel(){ return USERS[CURRENT_USER]?USERS[CURRENT_USER].label:'Invitado'; }
+function isAdmin(){ return getCurrentRole()==='admin'; }
+function isKAM(){ return getCurrentRole()==='admin'||getCurrentRole()==='kam'; }
+
 function launchApp(){
   document.getElementById('login-screen').style.display='none';
-  if(CURRENT_USER==='guest'){
+  var role = getCurrentRole();
+
+  // Show user chip on KAM page
+  var chip=document.getElementById('kam-user-chip');
+  if(chip){ chip.style.display=''; chip.textContent='👤 '+getCurrentLabel(); }
+
+  // Guest: read-only mode
+  if(role==='guest'){
     document.getElementById('guest-wm').style.display='block';
     document.querySelectorAll('input[type=number],input[type=text],input[type=date],input[type=month],select,input[type=checkbox],input[type=radio]').forEach(function(el){ el.disabled=true; });
     document.querySelectorAll('.btn-primary,.btn-danger-sm,.btn-upload').forEach(function(btn){ btn.style.display='none'; });
+    // Hide KAM nav item for guest
+    var kamNav=document.querySelector('.nav-item[data-p="kam"]');
+    if(kamNav) kamNav.style.display='none';
+    return;
   }
+
+  // KAM user: access to KAM page + standard pages, but NOT admin config
+  if(role==='kam'){
+    // KAM can see all pages but cannot change users/settings
+    // Hide admin-only items if any
+    document.querySelectorAll('.admin-only').forEach(function(el){ el.style.display='none'; });
+    return;
+  }
+
+  // Admin: full access, nothing to hide
 }
 
 /* ══════════════════════════════════════════
