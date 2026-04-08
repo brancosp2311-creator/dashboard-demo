@@ -1,0 +1,698 @@
+[
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Generación de indicadores (AAD03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Generar estadísticas y casuística (AAD01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Habilitación y reportabilidad de Capacitación (AAD04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Preparación de material de charla (AAD02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Preparación y entrega de material físico (AAD05)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Riesgo de emergencia - Generación de informe y/o presentación de resultados simulacro vía correo eléctronico (AAD06)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Gestión de Riesgo en SST - Generación de propuesta medidas para riesgos críticos (AAD07)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Protocolo Minsal - Generación de informe (AAD08)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Reunión de Trabajo (AAD09)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Presentación Resultados (AAD10)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Actividad administrativa (AAD)",
+    "submotivo": "Presentación de Venta FDT (AAD11)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Diagnóstico empresa (ACO01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Firma de acuerdo de colaboración  (ACO03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Generación de acuerdo de colaboración (ACO02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Modificación de actividades en acuerdo de colaboración (ACO06)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Verificación y control de actividades en acuerdo de colaboración (ACO04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Verificación y control global de acuerdo de colaboración (ACO05)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Verificación y control de actividades en acuerdo de colaboración periodo 2 (ACO07)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Acuerdo de colaboración (ACO)",
+    "submotivo": "Verificación y control de actividades en acuerdo de colaboración periodo 3 (ACO08)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Diagnóstico y Plan de Acción (FTG01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Observación de exposiciones- Entrenamiento al equipo de ejecución  (FTG02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Observación de exposiciones- Modelamiento y Coaching  (FTG03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Observación de exposiciones- Verificación de la calidad (FTG04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Observación de exposiciones- Evaluación de sostenibilidad  (FTG05)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Sesiones de Seguridad en el trabajo - Entrenamiento al equipo de ejecución  (FTG06)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Sesiones de Seguridad en el trabajo -  Modelamiento y Coaching  (FTG07)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Sesiones de Seguridad en el trabajo - Verificación de la calidad (FTG08)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Sesiones de Seguridad en el trabajo -  Evaluación de sostenibilidad  (FTG09)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Verificación de Controles Críticos - Entrenamiento al equipo de ejecución  (FTG10)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Verificación de Controles Críticos - Modelamiento y Coaching  (FTG11)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Verificación de Controles Críticos - Verificación de la calidad (FTG12)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Verificación de Controles Críticos -  Evaluación de sostenibilidad  (FTG13)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Asistencia Técnica FDT GIGE (FTG14)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Diagnóstico y Plan de Acción GIGE (FTG15)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Entrega de resultados y Plan de acción del líder GIGE (FTG16)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Coaching en Terreno 1 GIGE (FTG17)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Coaching en Terreno 2 GIGE (FTG18)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Coaching en Terreno 3 GIGE (FTG19)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "FDT Tradicional  GIGE (FTG)",
+    "submotivo": "Evaluación de sostenibilidad Informe al Líder del Sitio / CT GIGE (FTG20)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Ejecución de simulacro (ARE03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Generación de planes de emergencia y evacuación (ARE01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Presentación de contexto de simulacro (ARE02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Presentación de informe de resultados de simulacro (ARE05)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Realización actividades apoyo a gestión de riesgos de emergencia (ARE07)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Seguimiento de cumplimiento plan de acción de simulacro (ARE06)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión de Aspectos Legales (AAG)",
+    "submotivo": "Asesoría en normativas de SST (AAG01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión de Aspectos Legales (AAG)",
+    "submotivo": "Presentación de actualización D.S. 67 (AAG04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión de Aspectos Legales (AAG)",
+    "submotivo": "Generación y/o actualización D.S. 67 (AAG03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestion de Riesgo en SST (ARS)",
+    "submotivo": "Construcción de MIPER (ARS04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestion de Riesgo en SST (ARS)",
+    "submotivo": "Presentación de medidas para riesgos críticos (ARS02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestion de Riesgo en SST (ARS)",
+    "submotivo": "Seguimiento de cumplimiento en medidas para riesgos críticos (ARS03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Asesoría departamento prevención de riesgo (AGS05)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Asesoría en gestión de contratistas (AGS06)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Asesoría en seguridad industrial (AGS02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Asesoría teletrabajo y trabajo a distancia (AGS10)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Construcción plan de acción (AGS14)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Elaboración de material seguridad  (AGS08)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Generar programa de capacitación (AGS11)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Metodología Dekra (AGS13)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Realización charla/taller (AGS03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Revisión de material seguridad  (AGS09)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Actividad de liderazgo visible (AGS12)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Seguimiento asesoría en seguridad industrial (AGS15)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Investigación accidente metodología árbol causal (AGS16)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Asistencia técnica a todos los ingresos y seguimiento telefonico por cada control (AGS17)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría y gestión de protocolo (AGP)",
+    "submotivo": "Presentación de resultados y plan de acción sobre protocolos MINSAL (AGP03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría y gestión de protocolo (AGP)",
+    "submotivo": "Seguimiento de plan de acción sobre protocolos MINSAL (AGP04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asesoría y gestión de protocolo (AGP)",
+    "submotivo": "Verificación de cumplimiento de protocolos MINSAL (AGP01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asistencia en SST (ATS)",
+    "submotivo": "Análisis de accidentes y acuerdo de medidas de control en focos críticos (ATS01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asistencia en SST (ATS)",
+    "submotivo": "Análisis casuístico de casos (ATS03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asistencia en SST (ATS)",
+    "submotivo": "Jornadas preventivas (ATS04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Asistencia en SST (ATS)",
+    "submotivo": "Seguimiento de medidas de control en focos críticos (ATS02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Auditorías de seguridad y salud ocupacional (AUD)",
+    "submotivo": "Aplicación de auditoría de seguridad y salud ocupacional (AUD02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Auditorías de seguridad y salud ocupacional (AUD)",
+    "submotivo": "Informe de auditoría de seguridad y salud ocupacional (AUD03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Auditorías de seguridad y salud ocupacional (AUD)",
+    "submotivo": "Presentación de herramienta de auditoría de seguridad y salud ocupacional (AUD01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Actividad práctica con CPHS (CPH05)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Asesoría en certificación de CPHS (CPH03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Asesoría en elaboración de programa de trabajo (CPH04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Asesoría en gestión de CPHS (CPH01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Presentación de proceso de certificación (CPH02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Coordinación interna (CIN)",
+    "submotivo": "Coordinación interna por proyecto (CIN01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Infracciones DT (IDT)",
+    "submotivo": "Prescripción por infracción (IDT01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Infracciones DT (IDT)",
+    "submotivo": "Verificación y control infracción gravísima (IDT02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Aplicación de campaña preventiva (ITC108)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Generación de informe técnico de análisis casuístico (ITC109)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Identificación de peligros y evaluación de riesgos (ITC101)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Investigación de accidentes de incidentes (ITC105)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Inspección en procesos críticos (ITC103)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Seguimiento a acuerdos y medidas pendientes (ITC110)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Seguimiento identificación de peligros y evaluación de riesgos (ITC102)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Seguimiento investigación de accidentes de incidentes (ITC106)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Seguimiento Observación en procesos críticos (ITC104)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Generación de plan tactico de accidentabilidad (ITC111)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Generación de resultados de Plan táctico (ITC112)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Realización charla o taller (= o <5) (ITC30)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Difusión de Material Preventivo (ITC31)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Observación en procesos críticos (ITC113)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Seguimiento inspección en procesos críticos (ITC33)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Realización charla o taller (>5) (ITC32)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Asesoría en la elaboración en videos corporativos (SOP06)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Desarrollo de innovaciones en conjunto con la empresa (SOP07)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Gestión de prestaciones  y  documentación de siniestros (SOP08)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con área de prevención de riesgos (SOP01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con dirigentes sindicales (SOP02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con Gerencia o Directivos (SOP03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con Jefaturas (SOP04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con Recursos Humanos de la empresa (SOP09)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Administrativos -  Gestión de Contratistas (AGC)",
+    "submotivo": "Asesoría en gestión de contratistas revisión documental (AGC01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Administrativos -  Gestión de Contratistas (AGC)",
+    "submotivo": "Asesoría en gestión de contratistas capacitación (AGC02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Turnos (TUP)",
+    "submotivo": "Evaluación cualitativa (TUP01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Gestión sello Ley Karín (GLK)",
+    "submotivo": "Sensibilización y presentación (GLK01)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Gestión sello Ley Karín (GLK)",
+    "submotivo": "Asistencia Técnica (GLK02)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Gestión sello Ley Karín (GLK)",
+    "submotivo": "Verificación y cumplimiento Sello Ley Karin (GLK03)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Gestión sello Ley Karín (GLK)",
+    "submotivo": "Certificación de Gestión Sello Ley Karín Nivel 1 (GLK04)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Gestión sello Ley Karín (GLK)",
+    "submotivo": "Certificación de Gestión Sello Ley Karín Nivel 2 (GLK05)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  },
+  {
+    "motivo": "Gestión sello Ley Karín (GLK)",
+    "submotivo": "Entrega de certificado - Ceremonia (GLK06)",
+    "tipo_solicitud": "",
+    "prioridad": null
+  }
+]
