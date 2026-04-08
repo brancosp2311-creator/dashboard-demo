@@ -1,0 +1,239 @@
+[
+  {
+    "code": "ITC105",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Investigación de accidentes de incidentes (ITC105)",
+    "min_crit": 1,
+    "tipo": "ITC",
+    "desc": "Investigar cada AT para identificar causas raíz",
+    "obligatoria": true
+  },
+  {
+    "code": "ITC101",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Identificación de peligros y evaluación de riesgos (ITC101)",
+    "min_crit": 2,
+    "tipo": "ITC",
+    "desc": "IPER en procesos con mayor siniestralidad",
+    "obligatoria": true
+  },
+  {
+    "code": "ITC103",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Inspección en procesos críticos (ITC103)",
+    "min_crit": 2,
+    "tipo": "ITC",
+    "desc": "Lista de verificación en procesos con AT",
+    "obligatoria": true
+  },
+  {
+    "code": "ITC106",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Seguimiento investigación de accidentes de incidentes (ITC106)",
+    "min_crit": 2,
+    "tipo": "ITC",
+    "desc": "Seguimiento de medidas correctivas post-AT",
+    "obligatoria": false
+  },
+  {
+    "code": "ITC104",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Seguimiento Observación en procesos críticos (ITC104)",
+    "min_crit": 3,
+    "tipo": "ITC",
+    "desc": "Verificar cumplimiento de controles",
+    "obligatoria": false
+  },
+  {
+    "code": "ITC109",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Generación de informe técnico de análisis casuístico (ITC109)",
+    "min_crit": 3,
+    "tipo": "ITC",
+    "desc": "Informe mensual de tendencia de accidentes",
+    "obligatoria": false
+  },
+  {
+    "code": "ITC111",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Generación de plan tactico de accidentabilidad (ITC111)",
+    "min_crit": 4,
+    "tipo": "ITC",
+    "desc": "Plan táctico formal para centros críticos",
+    "obligatoria": false
+  },
+  {
+    "code": "ITC108",
+    "motivo": "Intervención Táctica Accidentabilidad ITA (ITC)",
+    "submotivo": "Aplicación de campaña preventiva (ITC108)",
+    "min_crit": 3,
+    "tipo": "ITC",
+    "desc": "Campaña preventiva focalizada",
+    "obligatoria": false
+  },
+  {
+    "code": "ARS04",
+    "motivo": "Asesoría Gestion de Riesgo en SST (ARS)",
+    "submotivo": "Construcción de MIPER (ARS04)",
+    "min_crit": 1,
+    "tipo": "MIPER",
+    "desc": "Matriz de Identificación y Evaluación de Riesgos",
+    "obligatoria": true
+  },
+  {
+    "code": "ARS02",
+    "motivo": "Asesoría Gestion de Riesgo en SST (ARS)",
+    "submotivo": "Presentación de medidas para riesgos críticos (ARS02)",
+    "min_crit": 2,
+    "tipo": "MIPER",
+    "desc": "Presentar controles para riesgos prioritarios",
+    "obligatoria": false
+  },
+  {
+    "code": "ARS03",
+    "motivo": "Asesoría Gestion de Riesgo en SST (ARS)",
+    "submotivo": "Seguimiento de cumplimiento en medidas para riesgos críticos (ARS03)",
+    "min_crit": 3,
+    "tipo": "MIPER",
+    "desc": "Verificar implementación de controles",
+    "obligatoria": false
+  },
+  {
+    "code": "CPH01",
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Asesoría en gestión de CPHS (CPH01)",
+    "min_crit": 1,
+    "tipo": "CPHS",
+    "desc": "Asesoría mensual al Comité Paritario",
+    "obligatoria": true,
+    "requiere_25": true
+  },
+  {
+    "code": "CPH04",
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Asesoría en elaboración de programa de trabajo (CPH04)",
+    "min_crit": 1,
+    "tipo": "CPHS",
+    "desc": "Apoyar elaboración del programa anual CPHS",
+    "obligatoria": true,
+    "requiere_25": true
+  },
+  {
+    "code": "CPH05",
+    "motivo": "Comité Paritario de Higiene y Seguridad (CPH)",
+    "submotivo": "Actividad práctica con CPHS (CPH05)",
+    "min_crit": 2,
+    "tipo": "CPHS",
+    "desc": "Actividad práctica de seguridad con CPHS",
+    "obligatoria": false,
+    "requiere_25": true
+  },
+  {
+    "code": "ATS01",
+    "motivo": "Asistencia en SST (ATS)",
+    "submotivo": "Análisis de accidentes y acuerdo de medidas de control en focos críticos (ATS01)",
+    "min_crit": 3,
+    "tipo": "ATS",
+    "desc": "Análisis casuístico y acuerdo de medidas",
+    "obligatoria": false
+  },
+  {
+    "code": "ATS03",
+    "motivo": "Asistencia en SST (ATS)",
+    "submotivo": "Análisis casuístico de casos (ATS03)",
+    "min_crit": 2,
+    "tipo": "ATS",
+    "desc": "Revisión de casos para identificar patrones",
+    "obligatoria": false
+  },
+  {
+    "code": "AGS03",
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Realización charla/taller (AGS03)",
+    "min_crit": 1,
+    "tipo": "Capacitación",
+    "desc": "Charla preventiva mensual al personal",
+    "obligatoria": true
+  },
+  {
+    "code": "AGS12",
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Actividad de liderazgo visible (AGS12)",
+    "min_crit": 3,
+    "tipo": "Capacitación",
+    "desc": "Actividad de liderazgo en seguridad con jefaturas",
+    "obligatoria": false
+  },
+  {
+    "code": "AGS11",
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Generar programa de capacitación (AGS11)",
+    "min_crit": 2,
+    "tipo": "Capacitación",
+    "desc": "Diseñar programa de capacitación preventiva",
+    "obligatoria": false
+  },
+  {
+    "code": "AGS16",
+    "motivo": "Asesoría Gestión En SST (AGS)",
+    "submotivo": "Investigación accidente metodología árbol causal (AGS16)",
+    "min_crit": 3,
+    "tipo": "ITC",
+    "desc": "Investigar AT por árbol causal",
+    "obligatoria": false
+  },
+  {
+    "code": "SOP03",
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con Gerencia o Directivos (SOP03)",
+    "min_crit": 3,
+    "tipo": "Reunión",
+    "desc": "Reunión de resultados con gerencia del centro",
+    "obligatoria": false
+  },
+  {
+    "code": "SOP04",
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con Jefaturas (SOP04)",
+    "min_crit": 2,
+    "tipo": "Reunión",
+    "desc": "Reunión preventiva con jefaturas operativas",
+    "obligatoria": false
+  },
+  {
+    "code": "SOP01",
+    "motivo": "Soporte en SST (SOP)",
+    "submotivo": "Reunión con área de prevención de riesgos (SOP01)",
+    "min_crit": 1,
+    "tipo": "Reunión",
+    "desc": "Coordinación con prevención del centro",
+    "obligatoria": true
+  },
+  {
+    "code": "AUD02",
+    "motivo": "Auditorías de seguridad y salud ocupacional (AUD)",
+    "submotivo": "Aplicación de auditoría de seguridad y salud ocupacional (AUD02)",
+    "min_crit": 3,
+    "tipo": "Auditoría",
+    "desc": "Auditoría de condiciones y prácticas SST",
+    "obligatoria": false
+  },
+  {
+    "code": "ARE01",
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Generación de planes de emergencia y evacuación (ARE01)",
+    "min_crit": 2,
+    "tipo": "Emergencia",
+    "desc": "Plan de emergencia y evacuación",
+    "obligatoria": false
+  },
+  {
+    "code": "ARE03",
+    "motivo": "Asesoría en riesgos de emergencia (ARE)",
+    "submotivo": "Ejecución de simulacro (ARE03)",
+    "min_crit": 2,
+    "tipo": "Emergencia",
+    "desc": "Simulacro de emergencia",
+    "obligatoria": false
+  }
+]
