@@ -3815,12 +3815,6 @@ var BP_DETAILS = {
   '2000574070':{ dir:'Av. Salvador 364', comuna:'Providencia', ref:'—', cargo_ref:'Referente en Prevención de Riesgos', email_ref:'', tel_ref:'' },
 };
 
-function getCurrentWeek(){
-  var d=new Date(), s=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
-  s.setUTCDate(s.getUTCDate()+4-(s.getUTCDay()||7));
-  var y=new Date(Date.UTC(s.getUTCFullYear(),0,1));
-  return Math.ceil((((s-y)/86400000)+1)/7);
-}
 
 function initTipologiaInputs(){
   var c=document.getElementById('sem-tipologia-inputs'); if(!c) return;
@@ -4215,23 +4209,6 @@ function populateAcuBPSelect(selId){
   });
 }
 
-function renderAcuerdos(){
-  populateAcuBPSelect('acu-bp');
-  var bpF=(document.getElementById('acu-bp')||{value:''}).value;
-  var estF=(document.getElementById('acu-estado')||{value:''}).value;
-  var today=new Date().toISOString().substring(0,10);
-  var rows=ACUERDOS.map(function(a,i){var estado=a.cumplido?'cumplido':(a.limite&&a.limite<today)?'vencido':'pendiente';return Object.assign({},a,{idx:i,estado:estado});}).filter(function(a){if(bpF&&a.bp!==bpF)return false;if(estF&&a.estado!==estF)return false;return true;});
-  document.getElementById('acuerdos-chip').textContent='📋 '+ACUERDOS.length+' acuerdo'+(ACUERDOS.length!==1?'s':'');
-  var kEl=document.getElementById('acu-kpis'); kEl.innerHTML='';
-  var pend=ACUERDOS.filter(function(a){return !a.cumplido&&(!a.limite||a.limite>=today);}).length;
-  var venc=ACUERDOS.filter(function(a){return !a.cumplido&&a.limite&&a.limite<today;}).length;
-  var cumpl=ACUERDOS.filter(function(a){return a.cumplido;}).length;
-  [{val:ACUERDOS.length,lbl:'Total',bg:'#F1F5F9',col:'#1E293B'},{val:pend,lbl:'Pendientes',bg:'#EFF6FF',col:'#1D4ED8'},{val:venc,lbl:'Vencidos',bg:'#FEF2F2',col:'#DC2626'},{val:cumpl,lbl:'Cumplidos',bg:'#ECFDF5',col:'#059669'}].forEach(function(k){var d=document.createElement('div');d.style.cssText='background:'+k.bg+';border-radius:var(--rl);padding:14px 16px;border:1px solid var(--g200)';d.innerHTML='<div style="font-size:1.8rem;font-weight:800;color:'+k.col+'">'+k.val+'</div><div style="font-size:.72rem;font-weight:700;color:#475569">'+k.lbl+'</div>';kEl.appendChild(d);});
-  var tb=document.getElementById('tb-acu'); tb.innerHTML='';
-  document.getElementById('acu-tbl-badge').textContent=rows.length+' registros';
-  rows.sort(function(a,b){return(b.fecha||'').localeCompare(a.fecha||'');}).forEach(function(a){var stMap={pendiente:{bg:'#EFF6FF',col:'#1D4ED8',lbl:'⏳ Pendiente'},vencido:{bg:'#FEF2F2',col:'#DC2626',lbl:'🔴 Vencido'},cumplido:{bg:'#ECFDF5',col:'#059669',lbl:'✅ Cumplido'}};var st=stMap[a.estado]||stMap.pendiente;var tr2=document.createElement('tr');tr2.innerHTML='<td style="font-weight:600;font-size:.75rem">'+bpName(a.bp)+'</td><td><span style="font-size:.65rem;background:#F1F5F9;padding:2px 8px;border-radius:20px;font-weight:700">'+a.cat+'</span></td><td>'+(a.fecha||'—')+'</td><td style="font-weight:600;color:'+(a.estado==='vencido'?'#DC2626':'inherit')+'">'+(a.limite||'—')+'</td><td style="font-size:.72rem">'+(a.resp||'—')+'</td><td style="font-size:.75rem;max-width:280px">'+(a.desc||'—')+'</td><td><span style="background:'+st.bg+';color:'+st.col+';padding:2px 9px;border-radius:20px;font-size:.65rem;font-weight:700">'+st.lbl+'</span></td><td style="white-space:nowrap">'+(CURRENT_USER!=='guest'?'<button onclick="toggleCumplido('+a.idx+')" style="font-size:.65rem;padding:3px 8px;border:1px solid var(--g200);border-radius:4px;cursor:pointer;background:'+(a.cumplido?'#ECFDF5':'#fff')+'">'+(a.cumplido?'↩ Reabrir':'✅ Cumplido')+'</button> <button onclick="editAcuerdo('+a.idx+')" style="font-size:.65rem;padding:3px 8px;border:1px solid var(--g200);border-radius:4px;cursor:pointer">✏️</button>':'—')+'</td>';tb.appendChild(tr2);});
-  if(!rows.length){var tr2=document.createElement('tr');tr2.innerHTML='<td colspan="8" class="no-data">No hay acuerdos.</td>';tb.appendChild(tr2);}
-}
 function openNuevoAcuerdo(){
   if(CURRENT_USER==='guest') return;
   _editAcuerdoIdx=-1;
@@ -4446,6 +4423,59 @@ function switchInfTab(el) {
   } else {
     document.querySelectorAll('.stat-tab[data-it]').forEach(function(t){ t.classList.toggle('active', t===el); });
     document.querySelectorAll('.inf-pane').forEach(function(p){ p.classList.toggle('active', p.id==='ipane-'+_curInfTab); });
+  }
+}
+
+/* ══════════════════════════════════════════
+   AUTH — Login / Roles
+══════════════════════════════════════════ */
+var CURRENT_USER = '';
+var USERS = {
+  'admin': { pass:'admin',    role:'admin', label:'Administrador' },
+  'kam':   { pass:'kamtest',  role:'kam',   label:'KAM / Experto OAL' },
+  'guest': { pass:'guest123', role:'guest', label:'Invitado (solo lectura)' }
+};
+function getCurrentRole(){ return USERS[CURRENT_USER] ? USERS[CURRENT_USER].role : 'guest'; }
+function getCurrentLabel(){ return USERS[CURRENT_USER] ? USERS[CURRENT_USER].label : 'Invitado'; }
+function isAdmin(){ return getCurrentRole()==='admin'; }
+function isKAM(){   return getCurrentRole()==='admin'||getCurrentRole()==='kam'; }
+
+function doLogin(){
+  var u=(document.getElementById('login-user').value||'').trim().toLowerCase();
+  var p=document.getElementById('login-pass').value||'';
+  var err=document.getElementById('login-err');
+  if(!USERS[u]||USERS[u].pass!==p){
+    err.textContent='❌ Usuario o contraseña incorrectos';
+    document.getElementById('login-pass').value='';
+    return;
+  }
+  CURRENT_USER=u; err.textContent=''; launchApp();
+}
+function doGuest(){ CURRENT_USER='guest'; launchApp(); }
+function setKAMMode(m){} // legacy stub
+
+function launchApp(){
+  document.getElementById('login-screen').style.display='none';
+  var role=getCurrentRole();
+  applyTabConfig();
+
+  // User chip on KAM page
+  var chip=document.getElementById('kam-user-chip');
+  if(chip){ chip.style.display=''; chip.textContent='👤 '+getCurrentLabel(); }
+
+  // Admin gear button
+  var gear=document.getElementById('admin-gear-btn');
+  if(gear) gear.style.display=(role==='admin')?'':'none';
+
+  if(role==='guest'){
+    var wm=document.getElementById('guest-wm'); if(wm) wm.style.display='block';
+    document.querySelectorAll('input[type=number],input[type=text],input[type=date],input[type=month],select,input[type=checkbox],input[type=radio]')
+      .forEach(function(el){ el.disabled=true; });
+    document.querySelectorAll('.btn-primary,.btn-danger-sm,.btn-upload')
+      .forEach(function(btn){ btn.style.display='none'; });
+    ['kam','activos','alertas','acuerdos','horas','multicuenta'].forEach(function(p){
+      var n=document.querySelector('.nav-item[data-p="'+p+'"]'); if(n) n.style.display='none';
+    });
   }
 }
 
