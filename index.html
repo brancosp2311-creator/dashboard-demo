@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>SSMO — Gestión de Siniestros</title>
+<title>Panel de Control de Accidentes</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -313,7 +313,7 @@ tr:hover td{background:var(--g50);color:var(--text);}
 .login-logo{text-align:center;margin-bottom:28px;}
 .login-logo .name{font-size:1.6rem;font-weight:800;color:#fff;letter-spacing:-.03em;}
 .login-logo .sub{font-size:.78rem;color:#64748B;margin-top:4px;}
-.login-logo .dot{width:10px;height:10px;border-radius:50%;background:#13A538;box-shadow:0 0 16px #13A538;display:inline-block;margin-right:6px;}
+.login-logo .dot{display:none;}
 .login-field{margin-bottom:14px;}
 .login-field label{display:block;font-size:.7rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
 .login-field input{width:100%;height:42px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;padding:0 14px;font-size:.9rem;outline:none;transition:border .2s;font-family:var(--font);}
@@ -344,8 +344,9 @@ tr:hover td{background:var(--g50);color:var(--text);}
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">
-      <div><span class="dot"></span><span class="name">SSMO Dashboard</span></div>
-      <div class="sub">Gestión de Siniestros · ACHS OAL</div>
+      <div style="margin-bottom:8px"><div style="display:inline-block;background:#13A538;color:#fff;font-size:1.4rem;font-weight:800;padding:6px 14px;border-radius:10px;letter-spacing:.04em">achs</div></div>
+      <div><span class="name">Panel de Control de Accidentes</span></div>
+      <div class="sub">SSMO · Prevención de Riesgos · ACHS</div>
     </div>
     <div class="login-field">
       <label>Usuario</label>
@@ -374,7 +375,7 @@ tr:hover td{background:var(--g50);color:var(--text);}
 
 <div id="loading">
   <div class="sp"></div>
-  <div class="ld-title">SSMO Dashboard</div>
+  <div class="ld-title">Panel de Control de Accidentes</div>
   <div class="ld-sub">Cargando base de siniestros...</div>
 </div>
 
@@ -385,7 +386,7 @@ tr:hover td{background:var(--g50);color:var(--text);}
   <div class="topbar-l">
     <button class="menu-btn" onclick="toggleSB()" aria-label="Menú">☰</button>
     <div>
-      <div class="brand-name">📋 Siniestros SSMO</div>
+      <div style="display:flex;align-items:center;gap:8px"><div style="background:#13A538;color:#fff;font-size:.75rem;font-weight:800;padding:3px 7px;border-radius:6px;letter-spacing:.02em;flex-shrink:0">achs</div><div class="brand-name">Panel de Control de Accidentes</div></div>
       <div class="brand-sub" id="brand-sub">Cargando...</div>
     </div>
     <span class="emp-badge" id="emp-badge" style="display:none">
@@ -395,6 +396,7 @@ tr:hover td{background:var(--g50);color:var(--text);}
   </div>
   <div class="topbar-r">
     <span class="upd-label" id="upd-label" style="display:none">↻ <span id="last-upd">—</span></span>
+    <button id="dark-toggle" onclick="toggleDark()" style="padding:8px 12px;border-radius:var(--r);border:1.5px solid var(--g200);background:transparent;color:var(--text2);font-size:.8rem;cursor:pointer;display:flex;align-items:center;gap:5px" title="Modo nocturno">🌙</button>
     <button class="btn-primary" onclick="openM('ms')">↑ Nueva base</button>
   </div>
 </nav>
@@ -404,18 +406,20 @@ tr:hover td{background:var(--g50);color:var(--text);}
 
 <div class="layout">
 <aside class="sidebar" id="sidebar">
-  <div class="nav-sec">Principal</div>
+  <div class="nav-sec">Análisis</div>
   <button class="nav-item active" data-p="resumen" onclick="goTo(this)"><span class="nav-icon">🏠</span><span class="nav-lbl">Resumen</span></button>
   <button class="nav-item" data-p="ingresos" onclick="goTo(this)"><span class="nav-icon">📈</span><span class="nav-lbl">Ingresos Diarios</span></button>
   <button class="nav-item" data-p="bp" onclick="goTo(this)"><span class="nav-icon">🏥</span><span class="nav-lbl">Por Centro (BP)</span></button>
   <button class="nav-item" data-p="casos" onclick="goTo(this)"><span class="nav-icon">🔍</span><span class="nav-lbl">Detalle Casos</span><span class="nav-cnt" id="nav-cnt">—</span></button>
   <div class="sb-div"></div>
-  <div class="nav-sec">Módulos</div>
+  <div class="nav-sec">Informes</div>
   <button class="nav-item" data-p="dotacion" onclick="goTo(this)"><span class="nav-icon">👥</span><span class="nav-lbl">Dotación</span></button>
   <button class="nav-item" data-p="estadisticas" onclick="goTo(this)"><span class="nav-icon">📐</span><span class="nav-lbl">Estadísticas</span></button>
   <button class="nav-item" data-p="informes" onclick="goTo(this)"><span class="nav-icon">📄</span><span class="nav-lbl">Informes</span></button>
+  <div class="sb-div"></div>
+  <div class="nav-sec">Gestión</div>
   <button class="nav-item" data-p="oal" onclick="goTo(this)"><span class="nav-icon">📋</span><span class="nav-lbl">Plan OAL</span></button>
-  <button class="nav-item" data-p="kam" onclick="goTo(this)"><span class="nav-icon">⭐</span><span class="nav-lbl">KAM</span></button>
+  <button class="nav-item" data-p="kam" onclick="goTo(this)"><span class="nav-icon">⭐</span><span class="nav-lbl">Reporte Ejecutivo</span></button>
   <button class="nav-item" data-p="ds67" onclick="goTo(this)"><span class="nav-icon">📊</span><span class="nav-lbl">Proyección DS67</span></button>
   <button class="nav-item" data-p="ayuda" onclick="goTo(this)"><span class="nav-icon">❓</span><span class="nav-lbl">Ayuda</span></button>
   <div style="margin-top:auto;padding-top:10px">
@@ -851,6 +855,21 @@ tr:hover td{background:var(--g50);color:var(--text);}
               <div style="font-size:.65rem;font-weight:700;color:#000;margin-bottom:4px">Masa (trabaj.)</div>
               <input type="number" id="inf-masa" min="1" placeholder="Ej: 9500" oninput="previewMensual()" style="width:100%;height:34px;padding:0 9px;border:1.5px solid var(--g200);border-radius:var(--r);font-size:.82rem;font-weight:600;color:var(--primary);outline:none">
             </div>
+            <div>
+              <div style="font-size:.65rem;font-weight:700;color:#000;margin-bottom:4px">Nombre del profesional</div>
+              <input type="text" id="inf-profesional" placeholder="Ej: Branco Sandoval Palma" style="width:100%;height:34px;padding:0 9px;border:1.5px solid var(--g200);border-radius:var(--r);font-size:.82rem;outline:none" value="">
+            </div>
+            <div>
+              <div style="font-size:.65rem;font-weight:700;color:#000;margin-bottom:4px">Cargo del profesional</div>
+              <input type="text" id="inf-cargo" placeholder="Ej: Experto en Prevención de Riesgos" style="width:100%;height:34px;padding:0 9px;border:1.5px solid var(--g200);border-radius:var(--r);font-size:.82rem;outline:none" value="">
+            </div>
+            <div>
+              <div style="font-size:.65rem;font-weight:700;color:#000;margin-bottom:4px">Tema PDF</div>
+              <select id="inf-tema" style="width:100%;height:34px;padding:0 9px;border:1.5px solid var(--g200);border-radius:var(--r);font-size:.82rem;outline:none">
+                <option value="claro">☀️ Claro (impresión)</option>
+                <option value="oscuro">🌙 Oscuro (presentación)</option>
+              </select>
+            </div>
           </div>
           <button id="btn-gen-mensual" onclick="generateMensual()" class="btn-primary" style="opacity:.4;pointer-events:none">
             🖨️ Generar Informe PDF
@@ -1160,7 +1179,7 @@ tr:hover td{background:var(--g50);color:var(--text);}
 <div class="page" id="page-kam">
   <div class="ph">
     <div>
-      <div class="ph-title" id="kam-page-title">Reporte Ejecutivo KAM</div>
+      <div class="ph-title" id="kam-page-title">Reporte Ejecutivo</div>
       <div class="ph-sub">Vista estratégica · Metas configurables · Presentación a gerencia</div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
@@ -1297,32 +1316,6 @@ tr:hover td{background:var(--g50);color:var(--text);}
   </div>
   <div class="content">
 
-    <!-- Archivos necesarios -->
-    <div class="help-section">
-      <h3>📁 Archivos necesarios</h3>
-      <div class="help-card">
-        <div class="hc-title">🗂️ Estructura de la carpeta</div>
-        <div class="hc-desc">
-          Todos los archivos deben estar en la <strong>misma carpeta</strong> para que el dashboard funcione:<br><br>
-          <span class="file-badge">📄 dashboard.html</span> — Aplicación principal (este archivo)<br>
-          <span class="file-badge">📊 data.json</span> — Base de siniestros <span style="color:var(--danger);font-weight:700">REQUERIDO</span><br>
-          <span class="file-badge">👥 dotacion.json</span> — Archivo plano de personal <span style="color:var(--text3)">opcional</span><br>
-          <span class="file-badge">📋 reposo.json</span> — Base de días de reposo <span style="color:var(--text3)">opcional (DS67)</span><br>
-          <span class="file-badge">📚 biblioteca.json</span> — Actividades PPP <span style="color:var(--text3)">requerido para Plan OAL</span><br>
-          <span class="file-badge">📐 plan_rules.json</span> — Reglas de criticidad OAL <span style="color:var(--text3)">requerido para Plan OAL</span>
-        </div>
-      </div>
-      <div class="help-card">
-        <div class="hc-title">🔄 ¿De dónde sale cada archivo?</div>
-        <div class="hc-desc" style="line-height:1.9">
-          <strong>📊 Planilla de siniestros (data.json / .xlsx)</strong> — Se descarga desde el <strong>Panel Power BI de Ingresos</strong> institucional ACHS. Debe contener las columnas de siniestro, tipo, RUT paciente, fechas y datos de reposo. Al cargarla al dashboard se convierte automáticamente.<br>
-          <strong>📋 Planilla de reposo DS67 (reposo.json / .xlsx)</strong> — Se descarga desde el <strong>Panel Power BI de Días de Reposo</strong>. Debe tener columnas de períodos mensuales (202401, 202402…) con los días perdidos por siniestro. Necesaria para la pestaña Proyección DS67.<br>
-          <strong>👥 Plantilla de dotación (dotacion.json / .xlsx)</strong> — Se completa con el modelo Excel <span class="file-badge">plantilla_dotacion_SSMO.xlsx</span> que se entrega junto al dashboard. Permite cruzar RUT de siniestros con el centro de trabajo real.<br>
-          <strong>📚 biblioteca.json + plan_rules.json</strong> — Archivos del sistema que vienen incluidos. No es necesario modificarlos salvo actualización de reglas por el responsable del sistema.
-        </div>
-      </div>
-    </div>
-
     <!-- Accesos -->
     <div class="help-section">
       <h3>🔐 Acceso y usuarios</h3>
@@ -1371,13 +1364,12 @@ tr:hover td{background:var(--g50);color:var(--text);}
         </div>
       </div>
       <div class="help-card">
-        <div class="hc-title">Fuentes de datos por sección</div>
+        <div class="hc-title">📚 Fuentes normativas</div>
         <div class="hc-desc" style="line-height:2">
-          🏠 <strong>Resumen General / Ingresos / Por BP / Detalle Casos / Estadísticas</strong> → Planilla descargada desde <em>Panel Power BI de Ingresos ACHS</em> (.xlsx → se carga como data.json)<br>
-          📊 <strong>Proyección DS67</strong> → Planilla descargada desde <em>Panel Power BI de Días de Reposo ACHS</em> (.xlsx → se carga como reposo.json). Aplica solo columnas con períodos mensuales (202401, 202402…)<br>
-          👥 <strong>Dotación</strong> → Completar <span class="file-badge">plantilla_dotacion_SSMO.xlsx</span> con nómina de personal. Columnas obligatorias: Rut.1 + Descripción Establecimiento<br>
-          📋 <strong>Plan OAL</strong> → biblioteca.json + plan_rules.json (incluidos en el paquete del dashboard, no requieren carga manual)<br>
-          📄 <strong>Informes / Comparativa</strong> → Se generan automáticamente desde los datos cargados. No requieren archivo adicional
+          <strong>Ley N° 16.744</strong> — Establece normas sobre accidentes del trabajo y enfermedades profesionales. Define las coberturas, tipos de siniestros y obligaciones del empleador y la mutualidad.<br>
+          <strong>DS N° 40/1969 MINTRAB</strong> — Aprueba el Reglamento sobre prevención de riesgos profesionales. Establece la fórmula de la Tasa de Accidentabilidad: (N° AT / N° trabajadores) × 100.<br>
+          <strong>DS N° 67/1999 MINTRAB</strong> — Reglamento para la aplicación de las cotizaciones adicionales diferenciadas. Regula el proceso DS67 y la fórmula de la TSIT por período julio–junio.<br>
+          <strong>SUSESO Circular 3904/2025</strong> — Instrucciones para el proceso DS67 2025. Define la tabla de tramos TST, la fórmula del TSIM y el período de evaluación vigente.
         </div>
       </div>
       <div class="help-card">
@@ -1395,7 +1387,7 @@ tr:hover td{background:var(--g50);color:var(--text);}
     <div class="help-section">
       <h3>© Propiedad intelectual</h3>
       <div class="help-card" style="background:linear-gradient(135deg,#0F172A,#1E293B);border-color:#334155">
-        <div class="hc-title" style="color:#93C5FD">SSMO Dashboard — Gestión de Siniestros</div>
+        <div class="hc-title" style="color:#93C5FD">Panel de Control de Accidentes — Gestión de Siniestros</div>
         <div class="hc-desc" style="color:#94A3B8;line-height:1.8">
           <strong style="color:#fff">Autor:</strong> <span style="color:#60A5FA">Branco — "null"</span><br>
           <strong style="color:#fff">Versión:</strong> <span style="color:#60A5FA">2025 · Build 1.0</span><br>
@@ -1678,7 +1670,7 @@ tr:hover td{background:var(--g50);color:var(--text);}
 
       <!-- Evolución + BP stacked -->
       <div class="g2">
-        <div class="card"><div class="ch"><span class="ct">Evolución mensual por centro</span><span class="cb">APILADO</span></div><div class="cd"><div class="cw cw280"><canvas id="c-ds67-bp"></canvas></div></div></div>
+        <div class="card"><div class="ch"><span class="ct">Evolución mensual por centro</span><span class="cb">APILADO</span></div><div class="cd"><div class="cw cw220"><canvas id="c-ds67-bp"></canvas></div></div></div>
         <div class="card"><div class="ch"><span class="ct">Distribución de días por BP</span><span class="cb">PERÍODO 1</span></div><div class="cd"><div class="cw cw280"><canvas id="c-ds67-trend"></canvas></div></div></div>
       </div>
 
@@ -1754,6 +1746,59 @@ var ESTAB_BP = {
   'HOSPITAL METROPOLITANO DE SANTIAGO':     '2000906772',
   'INST. NAC. REHAB. PEDRO AGUIRRE CERDA':  '2000294187'
 };
+
+
+/* ══════════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════════ */
+var _dark = false;
+function toggleDark(){
+  _dark=!_dark;
+  sessionStorage.setItem('dark',_dark?'1':'0');
+  applyDark();
+}
+function applyDark(){
+  var btn=document.getElementById('dark-toggle');
+  if(_dark){
+    document.documentElement.style.setProperty('--bg','#0F172A');
+    document.documentElement.style.setProperty('--surface','#1E293B');
+    document.documentElement.style.setProperty('--card','#1E293B');
+    document.documentElement.style.setProperty('--text','#F1F5F9');
+    document.documentElement.style.setProperty('--text2','#CBD5E1');
+    document.documentElement.style.setProperty('--text3','#94A3B8');
+    document.documentElement.style.setProperty('--g50','#0F172A');
+    document.documentElement.style.setProperty('--g100','#1E293B');
+    document.documentElement.style.setProperty('--g200','#334155');
+    document.documentElement.style.setProperty('--g300','#475569');
+    if(btn){btn.textContent='☀️';btn.title='Modo claro';}
+  } else {
+    document.documentElement.style.removeProperty('--bg');
+    document.documentElement.style.removeProperty('--surface');
+    document.documentElement.style.removeProperty('--card');
+    document.documentElement.style.removeProperty('--text');
+    document.documentElement.style.removeProperty('--text2');
+    document.documentElement.style.removeProperty('--text3');
+    document.documentElement.style.removeProperty('--g50');
+    document.documentElement.style.removeProperty('--g100');
+    document.documentElement.style.removeProperty('--g200');
+    document.documentElement.style.removeProperty('--g300');
+    if(btn){btn.textContent='🌙';btn.title='Modo nocturno';}
+  }
+}
+// Init dark from session
+(function(){ if(sessionStorage.getItem('dark')==='1'){_dark=true;} })();
+
+/* ══════════════════════════════════════════
+   DSSMO FILTER LOGIC
+   DSSMO = todos los BP del RUT 61608400-3
+   = los 10 BPs del SSMO (excluye Otros)
+══════════════════════════════════════════ */
+var SSMO_BPS = Object.keys({
+  '2000294185':1,'2000574070':1,'2000294182':1,'2000294188':1,
+  '2000294183':1,'2000294184':1,'2000294186':1,'2000294189':1,
+  '2000906772':1,'2000294187':1
+});
+var DSSMO_LABEL = 'DSSMO — Todos los centros SSMO';
 
 // Paleta ACHS oficial
 var CLR = ['#13A538','#9FE1CB','#E07B10','#FAC775','#185FA5','#888780','#0F6E56','#FAE8D0','#085041','#B5D4F4','#3B6D11','#D3D1C7'];
@@ -1847,7 +1892,7 @@ function dmMap(arr){ var m={}; arr.forEach(function(r){var d=r['FECHA PRESENTACI
 function fil(o){
   o=o||{};
   return DATA.filter(function(r){
-    if(o.bp && r['_BP']!==o.bp) return false;
+    if(o.bp && o.bp==='__DSSMO__'){if(SSMO_BPS.indexOf(r['_BP'])<0)return false;}else if(o.bp && r['_BP']!==o.bp) return false;
     if(o.tipo && r['TIPO SINIESTRO']!==o.tipo) return false;
     if(o.ctp && r['CTP/STP']!==o.ctp) return false;
     if(o.año && r['AÑO']!==o.año) return false;
@@ -1937,6 +1982,10 @@ function init(raw) {
   function fillSel(id, opts, lbl) {
     var el=document.getElementById(id); if(!el) return;
     while(el.options.length>1) el.remove(1);
+    // Add DSSMO option for BP selects
+    if(id.indexOf('bp')>=0||id.indexOf('BP')>=0){
+      var xd=document.createElement('option');xd.value='__DSSMO__';xd.textContent=DSSMO_LABEL;el.appendChild(xd);
+    }
     opts.forEach(function(o){var x=document.createElement('option');x.value=o;x.textContent=lbl?lbl(o):o;el.appendChild(x);});
   }
   fillSel('fd-bp', allBPs, fmtBP);
@@ -2907,6 +2956,10 @@ function generateMensual() {
     +'<div class="tasa-card"><div class="tasa-lbl">Tasa Gravedad AT</div><div class="tasa-val">'+(hht>0?(dias(at)/hht*1e6).toFixed(2):0)+'</div><div class="tasa-formula">'+dias(at)+' días / '+Math.round(hht).toLocaleString('es')+' HHT × 1M</div></div>'
     +'</div></div>':'';
 
+  var profesional=document.getElementById('inf-profesional')?document.getElementById('inf-profesional').value:'';
+  var cargo=document.getElementById('inf-cargo')?document.getElementById('inf-cargo').value:'';
+  var tema=document.getElementById('inf-tema')?document.getElementById('inf-tema').value:'claro';
+  var isDarkPDF=tema==='oscuro';
   var html='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
   +'<title>Cierre '+MESES_ES[mes]+' '+año+'</title>'
   +'<style>'
@@ -3033,7 +3086,7 @@ function generateMensual() {
 
   // Footer
   +'<div class="footer">'
-  +'<span>SSMO — Gestión de Siniestros Ley 16.744 · '+MESES_ES[mes]+' '+año+'</span>'
+  +'<span>Panel de Control de Accidentes Ley 16.744 · '+MESES_ES[mes]+' '+año+'</span>'
   +'<span>Generado el '+new Date().toLocaleDateString('es-CL')+' · Confidencial</span>'
   +'</div>'
   +'<script>window.onload=function(){window.print();}<\/script>'
@@ -3216,6 +3269,10 @@ function generateInteranual() {
     }
   });
 
+  var profesional=document.getElementById('inf-profesional')?document.getElementById('inf-profesional').value:'';
+  var cargo=document.getElementById('inf-cargo')?document.getElementById('inf-cargo').value:'';
+  var tema=document.getElementById('inf-tema')?document.getElementById('inf-tema').value:'claro';
+  var isDarkPDF=tema==='oscuro';
   var html='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
   +'<title>Comparativa '+a1+' vs '+a2+'</title>'
   +'<style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:\'Helvetica Neue\',Arial,sans-serif;font-size:10pt;color:#1E293B;background:#fff;}'
@@ -4195,6 +4252,7 @@ function doLogin(){
 function doGuest(){ CURRENT_USER='guest'; launchApp(); }
 function launchApp(){
   document.getElementById('login-screen').style.display='none';
+  applyDark();
   if(CURRENT_USER==='guest'){
     document.getElementById('guest-wm').style.display='block';
     document.querySelectorAll('input[type=number],input[type=text],input[type=date],input[type=month],select,input[type=checkbox],input[type=radio]').forEach(function(el){ el.disabled=true; });
@@ -4206,6 +4264,7 @@ function launchApp(){
    BOOT
 ══════════════════════════════════════════ */
 window.onload=function(){
+  if(sessionStorage.getItem('dark')==='1'){_dark=true;applyDark();}
   var p1=fetch('data.json').then(function(r){return r.json();});
   var p2=fetch('dotacion.json').then(function(r){return r.json();}).catch(function(){return null;});
   var p3=fetch('reposo.json').then(function(r){return r.json();}).catch(function(){return null;});
@@ -4227,7 +4286,7 @@ window.onload=function(){
     // Set default plan month/year to current
     var mesEl=document.getElementById('plan-mes');if(mesEl)mesEl.value=new Date().getMonth()+1;
   }).catch(function(){
-    document.getElementById('loading').innerHTML='<div style="text-align:center;padding:20px"><div style="font-size:3rem;margin-bottom:12px">📋</div><div style="font-size:1.1rem;font-weight:800;color:#1E293B;margin-bottom:6px">SSMO Dashboard</div><div style="font-size:.82rem;color:#94A3B8;margin-bottom:20px;max-width:280px;margin-left:auto;margin-right:auto">Carga tu archivo .xlsx de siniestros para comenzar</div><button class="btn-primary" style="margin:auto;display:inline-flex" onclick="document.getElementById(\'loading\').style.display=\'none\';document.getElementById(\'app\').style.display=\'block\';openM(\'ms\')">↑ Cargar base de datos</button></div>';
+    document.getElementById('loading').innerHTML='<div style="text-align:center;padding:20px"><div style="font-size:3rem;margin-bottom:12px">📋</div><div style="font-size:1.1rem;font-weight:800;color:#1E293B;margin-bottom:6px">Panel de Control de Accidentes</div><div style="font-size:.82rem;color:#94A3B8;margin-bottom:20px;max-width:280px;margin-left:auto;margin-right:auto">Carga tu archivo .xlsx de siniestros para comenzar</div><button class="btn-primary" style="margin:auto;display:inline-flex" onclick="document.getElementById(\'loading\').style.display=\'none\';document.getElementById(\'app\').style.display=\'block\';openM(\'ms\')">↑ Cargar base de datos</button></div>';
   });
 };
 </script>
