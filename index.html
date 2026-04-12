@@ -9,12 +9,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --primary:#2563EB; --primary-l:#EFF6FF; --primary-m:#BFDBFE;
+  --primary:#13A538; --primary-l:#EAF7EE; --primary-m:#9FE1CB;
   --success:#059669; --success-l:#ECFDF5;
-  --warn:#D97706;    --warn-l:#FFFBEB;
+  --warn:#E07B10;    --warn-l:#FAE8D0;
   --danger:#DC2626;  --danger-l:#FEF2F2;
-  --purple:#7C3AED;  --purple-l:#F5F3FF;
-  --teal:#0891B2;    --teal-l:#ECFEFF;
+  --purple:#185FA5;  --purple-l:#E6F1FB;
+  --teal:#0F6E56;    --teal-l:#E1F5EE;
   --g50:#F8FAFC; --g100:#F1F5F9; --g200:#E2E8F0;
   --g300:#CBD5E1; --g400:#94A3B8; --g500:#64748B;
   --g600:#475569; --g700:#334155; --g800:#1E293B; --g900:#0F172A;
@@ -313,13 +313,13 @@ tr:hover td{background:var(--g50);color:var(--text);}
 .login-logo{text-align:center;margin-bottom:28px;}
 .login-logo .name{font-size:1.6rem;font-weight:800;color:#fff;letter-spacing:-.03em;}
 .login-logo .sub{font-size:.78rem;color:#64748B;margin-top:4px;}
-.login-logo .dot{width:10px;height:10px;border-radius:50%;background:#3B82F6;box-shadow:0 0 16px #3B82F6;display:inline-block;margin-right:6px;}
+.login-logo .dot{width:10px;height:10px;border-radius:50%;background:#13A538;box-shadow:0 0 16px #13A538;display:inline-block;margin-right:6px;}
 .login-field{margin-bottom:14px;}
 .login-field label{display:block;font-size:.7rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
 .login-field input{width:100%;height:42px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;padding:0 14px;font-size:.9rem;outline:none;transition:border .2s;font-family:var(--font);}
-.login-field input:focus{border-color:#3B82F6;box-shadow:0 0 0 3px rgba(59,130,246,.15);}
-.login-btn{width:100%;height:44px;background:#3B82F6;border:none;border-radius:10px;color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:6px;transition:all .2s;font-family:var(--font);}
-.login-btn:hover{background:#2563EB;transform:translateY(-1px);}
+.login-field input:focus{border-color:#13A538;box-shadow:0 0 0 3px rgba(19,165,56,.15);}
+.login-btn{width:100%;height:44px;background:#13A538;border:none;border-radius:10px;color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:6px;transition:all .2s;font-family:var(--font);}
+.login-btn:hover{background:#0F6E56;transform:translateY(-1px);}
 .login-error{color:#F87171;font-size:.78rem;text-align:center;margin-top:10px;min-height:18px;}
 .login-guest{text-align:center;margin-top:14px;font-size:.75rem;color:#475569;cursor:pointer;transition:color .15s;}
 .login-guest:hover{color:#94A3B8;}
@@ -1755,7 +1755,8 @@ var ESTAB_BP = {
   'INST. NAC. REHAB. PEDRO AGUIRRE CERDA':  '2000294187'
 };
 
-var CLR = ['#3B82F6','#F59E0B','#10B981','#EF4444','#8B5CF6','#F97316','#06B6D4','#EC4899','#84CC16','#6366F1','#14B8A6','#F43F5E'];
+// Paleta ACHS oficial
+var CLR = ['#13A538','#9FE1CB','#E07B10','#FAC775','#185FA5','#888780','#0F6E56','#FAE8D0','#085041','#B5D4F4','#3B6D11','#D3D1C7'];
 var TCLS = {'Trabajo':'trabajo','Trayecto':'trayecto','Enfermedad Profesional':'ep','No Ley':'noley','Vigilancia de la Salud':'vs','Incidente sin lesión':'inc'};
 var DAYS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
 
@@ -1777,6 +1778,34 @@ function mkC(id, cfg) {
   var el = document.getElementById(id); if (!el) return;
   _CH[id] = new Chart(el, cfg);
 }
+// ── Plugin: etiquetas visibles sobre barras ──
+var ACHS_DATALABEL = {
+  id:'achsDatalabel',
+  afterDatasetsDraw:function(chart){
+    var ctx=chart.ctx;
+    chart.data.datasets.forEach(function(dataset,i){
+      var meta=chart.getDatasetMeta(i);
+      if(meta.hidden) return;
+      meta.data.forEach(function(element,index){
+        var value=dataset.data[index];
+        if(value===null||value===undefined||value===0) return;
+        var pos=element.getCenterPoint?element.getCenterPoint():{x:element.x,y:element.y};
+        // decide color: blanco si barra oscura, negro si muy clara
+        var bg=dataset.backgroundColor;
+        var col=Array.isArray(bg)?bg[index]:bg;
+        ctx.save();
+        ctx.font='600 10px Inter,system-ui,sans-serif';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillStyle='#fff';
+        ctx.fillText(typeof value==='number'?value:value,pos.x,pos.y);
+        ctx.restore();
+      });
+    });
+  }
+};
+if(typeof Chart!=='undefined') Chart.register(ACHS_DATALABEL);
+
 // Global Chart.js defaults for consistent appearance
 if(typeof Chart !== 'undefined'){
   Chart.defaults.color = '#334155';
@@ -1794,7 +1823,7 @@ if(typeof Chart !== 'undefined'){
 }
 function axLine() {
   return {responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},
+    plugins:{legend:{display:false},achsDatalabel:{},
       tooltip:{backgroundColor:'rgba(15,23,42,.92)',titleColor:'#fff',bodyColor:'#CBD5E1',padding:10,cornerRadius:8,displayColors:false}},
     scales:{
       x:{ticks:{color:'#334155',font:{size:9,weight:'600'},maxRotation:45},grid:{color:'#E2E8F0'},border:{color:'#CBD5E1'}},
@@ -1802,6 +1831,7 @@ function axLine() {
 }
 function axBarH() {
   var o=axLine(); o.indexAxis='y'; o.scales.x.ticks.maxRotation=0;
+  o.plugins.achsDatalabel={};
   o.scales.y.ticks.font={size:9,weight:'700'}; o.scales.y.ticks.color='#1E293B';
   return o;
 }
@@ -1991,7 +2021,7 @@ function renderOV() {
 
   // Line
   var dm=dmMap(d),l45=Object.keys(dm).sort().slice(-45);
-  mkC('c-ov-line',{type:'line',data:{labels:l45.map(function(x){return x.substring(5);}),datasets:[{data:l45.map(function(x){return dm[x]||0;}),borderColor:'#3B82F6',backgroundColor:'rgba(59,130,246,.1)',borderWidth:2.5,fill:true,tension:.4,pointRadius:2,pointHoverRadius:5,pointBackgroundColor:'#3B82F6'}]},options:axLine()});
+  mkC('c-ov-line',{type:'line',data:{labels:l45.map(function(x){return x.substring(5);}),datasets:[{data:l45.map(function(x){return dm[x]||0;}),borderColor:'#13A538',backgroundColor:'rgba(19,165,56,.1)',borderWidth:2.5,fill:true,tension:.4,pointRadius:2,pointHoverRadius:5,pointBackgroundColor:'#13A538'}]},options:axLine()});
 
   // Tipo
   var tm=cntBy(d,'TIPO SINIESTRO'),tk=Object.keys(tm);
@@ -2003,15 +2033,15 @@ function renderOV() {
   mkC('c-ov-bp',{type:'bar',data:{labels:bpK.map(bpName),datasets:[{data:bpK.map(function(b){return d.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:CLR,borderRadius:5,borderSkipped:false}]},options:axBarH()});
 
   // Días perdidos por BP
-  mkC('c-ov-dias',{type:'bar',data:{labels:bpK.map(bpName),datasets:[{data:bpK.map(function(b){var v=d.filter(function(r){return r['_BP']===b;}).map(function(r){return r['DIAS_PERDIDOS'];}).filter(function(v){return v!=null&&v>=0;});return v.length?(v.reduce(function(a,c){return a+c;},0)/v.length).toFixed(1):0;}),backgroundColor:'#F59E0B',borderRadius:5,borderSkipped:false}]},options:axBarH()});
+  mkC('c-ov-dias',{type:'bar',data:{labels:bpK.map(bpName),datasets:[{data:bpK.map(function(b){var v=d.filter(function(r){return r['_BP']===b;}).map(function(r){return r['DIAS_PERDIDOS'];}).filter(function(v){return v!=null&&v>=0;});return v.length?(v.reduce(function(a,c){return a+c;},0)/v.length).toFixed(1):0;}),backgroundColor:'#E07B10',borderRadius:5,borderSkipped:false}]},options:axBarH()});
 
   // Género
   var gm=cntBy(d,'GENERO_PACIENTE');
-  mkC('c-ov-gen',{type:'pie',data:{labels:Object.keys(gm),datasets:[{data:Object.values(gm),backgroundColor:['#3B82F6','#F59E0B','#94A3B8'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#1E293B',font:{size:10,weight:'600'},boxWidth:10,padding:8}}}}});
+  mkC('c-ov-gen',{type:'pie',data:{labels:Object.keys(gm),datasets:[{data:Object.values(gm),backgroundColor:['#13A538','#E07B10','#888780'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#1E293B',font:{size:10,weight:'600'},boxWidth:10,padding:8}}}}});
 
   // Top puestos
   var pm=cntBy(d,'puesto_trabajo'),pk=Object.keys(pm).sort(function(a,b){return pm[b]-pm[a];}).slice(0,10);
-  mkC('c-ov-puesto',{type:'bar',data:{labels:pk,datasets:[{data:pk.map(function(k){return pm[k];}),backgroundColor:'#8B5CF6',borderRadius:5,borderSkipped:false}]},options:axBarH()});
+  mkC('c-ov-puesto',{type:'bar',data:{labels:pk,datasets:[{data:pk.map(function(k){return pm[k];}),backgroundColor:'#185FA5',borderRadius:5,borderSkipped:false}]},options:axBarH()});
 
   renderHM(d);
 }
@@ -2091,13 +2121,13 @@ function renderBP() {
     (!bp?'<div class="sm"><div class="sm-lbl">Centros (BP)</div><div class="sm-val">'+bpS.size+'</div></div>':'')+
     (DOT_LOADED&&changed?'<div class="sm"><div class="sm-lbl">BP reasignados (dot.)</div><div class="sm-val" style="color:var(--warn)">'+changed+'</div></div>':'');
   var dm=dmMap(f),sd=Object.keys(dm).sort().slice(-60);
-  mkC('c-bp-line',{type:'line',data:{labels:sd.map(function(x){return x.substring(5);}),datasets:[{data:sd.map(function(x){return dm[x];}),borderColor:'#3B82F6',backgroundColor:'rgba(59,130,246,.1)',borderWidth:2.5,fill:true,tension:.4,pointRadius:2}]},options:axLine()});
+  mkC('c-bp-line',{type:'line',data:{labels:sd.map(function(x){return x.substring(5);}),datasets:[{data:sd.map(function(x){return dm[x];}),borderColor:'#13A538',backgroundColor:'rgba(19,165,56,.1)',borderWidth:2.5,fill:true,tension:.4,pointRadius:2}]},options:axLine()});
   var tm=cntBy(f,'TIPO SINIESTRO'),tk=Object.keys(tm);
   mkC('c-bp-tipo',{type:'doughnut',data:{labels:tk,datasets:[{data:tk.map(function(k){return tm[k];}),backgroundColor:CLR,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#1E293B',font:{size:9,weight:'600'},boxWidth:10,padding:8}}}}});
   var pm=cntBy(f,'PARTE LESIONADA'),pk=Object.keys(pm).sort(function(a,b){return pm[b]-pm[a];}).slice(0,8);
-  mkC('c-bp-parte',{type:'bar',data:{labels:pk,datasets:[{data:pk.map(function(k){return pm[k];}),backgroundColor:'#10B981',borderRadius:5,borderSkipped:false}]},options:axBarH()});
+  mkC('c-bp-parte',{type:'bar',data:{labels:pk,datasets:[{data:pk.map(function(k){return pm[k];}),backgroundColor:'#13A538',borderRadius:5,borderSkipped:false}]},options:axBarH()});
   var pu=cntBy(f,'puesto_trabajo'),puk=Object.keys(pu).sort(function(a,b){return pu[b]-pu[a];}).slice(0,10);
-  mkC('c-bp-puesto',{type:'bar',data:{labels:puk,datasets:[{data:puk.map(function(k){return pu[k];}),backgroundColor:'#F59E0B',borderRadius:5,borderSkipped:false}]},options:axBarH()});
+  mkC('c-bp-puesto',{type:'bar',data:{labels:puk,datasets:[{data:puk.map(function(k){return pu[k];}),backgroundColor:'#E07B10',borderRadius:5,borderSkipped:false}]},options:axBarH()});
   var tb=document.getElementById('tb-bp');tb.innerHTML='';
   f.slice().sort(function(a,b){return(b['FECHA PRESENTACION']||'').localeCompare(a['FECHA PRESENTACION']||'');}).slice(0,100).forEach(function(r){
     var changed=r['_BP_CHANGED'];
@@ -2233,7 +2263,7 @@ function renderDot() {
   document.getElementById('dot-match-cnt').textContent=matched.length+' casos';
 
   // Charts
-  mkC('c-dot-match',{type:'doughnut',data:{labels:['Con siniestro','Sin siniestro'],datasets:[{data:[matched.length,fDot.length-matched.length],backgroundColor:['#3B82F6','#E2E8F0'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:'#1E293B',font:{size:10,weight:'600'},boxWidth:10,padding:8}}}}});
+  mkC('c-dot-match',{type:'doughnut',data:{labels:['Con siniestro','Sin siniestro'],datasets:[{data:[matched.length,fDot.length-matched.length],backgroundColor:['#13A538','#D3D1C7'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:'#1E293B',font:{size:10,weight:'600'},boxWidth:10,padding:8}}}}});
 
   function barDotChart(cid, arr, key, color) {
     var m={}; arr.forEach(function(r){var di=DOT_MAP[r['RUT PACIENTE']];if(di&&di[key])m[di[key]]=(m[di[key]]||0)+1;});
@@ -2587,18 +2617,18 @@ function renderEstadisticas() {
       return Object.assign({},ds,{data:allMonths.slice(-24).map(function(k){return m[k]||0;})});
     })},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#000',font:{size:9,weight:'600'},boxWidth:10,padding:5}}},scales:{x:{stacked:true,ticks:{color:'#333',font:{size:9},maxRotation:45},grid:{color:'#F1F5F9'}},y:{stacked:true,ticks:{color:'#333',font:{size:9}},grid:{color:'#F1F5F9'}}}}});
     // BP bar
-    mkC('c-est-bp-all',{type:'bar',data:{labels:bpKeys.map(bpName),datasets:[{data:bpData(all),backgroundColor:CLR,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
+    mkC('c-est-bp-all',{type:'bar',data:{labels:bpKeys.map(bpName),datasets:[{data:bpData(all),backgroundColor:CLR,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
     // Días BP
-    mkC('c-est-dias-bp',{type:'bar',data:{labels:bpKeys.map(bpName),datasets:[{data:bpKeys.map(function(b){return sumDias(all.filter(function(r){return r['_BP']===b;}));}),backgroundColor:'#F59E0B',borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
+    mkC('c-est-dias-bp',{type:'bar',data:{labels:bpKeys.map(bpName),datasets:[{data:bpKeys.map(function(b){return sumDias(all.filter(function(r){return r['_BP']===b;}));}),backgroundColor:'#E07B10',borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
     // Género
     var gm=cntBy(all,'GENERO_PACIENTE');
-    mkC('c-est-gen-all',{type:'pie',data:{labels:Object.keys(gm),datasets:[{data:Object.values(gm),backgroundColor:['#3B82F6','#F59E0B','#94A3B8'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#000',font:{size:10,weight:'600'},boxWidth:10,padding:8}}}}});
+    mkC('c-est-gen-all',{type:'pie',data:{labels:Object.keys(gm),datasets:[{data:Object.values(gm),backgroundColor:['#13A538','#E07B10','#888780'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#000',font:{size:10,weight:'600'},boxWidth:10,padding:8}}}}});
     // Parte
     var pd=parteData(all,10);
-    mkC('c-est-parte-all',{type:'bar',data:{labels:pd.labels,datasets:[{data:pd.vals,backgroundColor:'#8B5CF6',borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
+    mkC('c-est-parte-all',{type:'bar',data:{labels:pd.labels,datasets:[{data:pd.vals,backgroundColor:'#185FA5',borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
     // DOW
     var dw=dowData(all);
-    mkC('c-est-dow',{type:'bar',data:{labels:dw.labels,datasets:[{data:dw.vals,backgroundColor:dw.vals.map(function(_,i){return i>=1&&i<=5?'rgba(37,99,235,.75)':'rgba(217,119,6,.6)';}),borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
+    mkC('c-est-dow',{type:'bar',data:{labels:dw.labels,datasets:[{data:dw.vals,backgroundColor:dw.vals.map(function(_,i){return i>=1&&i<=5?'rgba(37,99,235,.75)':'rgba(217,119,6,.6)';}),borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
     // Seasonality heatmap by month
     var years=[...new Set(all.map(function(r){return r['AÑO']||0;}).filter(Boolean))].sort();
     var seaDatasets=years.map(function(yr,i){
@@ -2613,12 +2643,12 @@ function renderEstadisticas() {
     var sub = all.filter(function(r){return r['TIPO SINIESTRO']===tipo;});
     var allMonths2=[...new Set(all.map(function(r){return(r['FECHA PRESENTACION']||'').substring(0,7);}).filter(Boolean))].sort();
     var mm={}; sub.forEach(function(r){var k=(r['FECHA PRESENTACION']||'').substring(0,7);if(k)mm[k]=(mm[k]||0)+1;});
-    if(canLine) mkC(canLine,{type:'bar',data:{labels:allMonths2.slice(-24),datasets:[{data:allMonths2.slice(-24).map(function(k){return mm[k]||0;}),backgroundColor:clr,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'},maxRotation:45},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
-    if(canBP)  mkC(canBP, {type:'bar',data:{labels:bpKeys.map(bpName),datasets:[{data:bpData(sub),backgroundColor:bpKeys.map(function(_,i){return CLR[i%CLR.length];}),borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
-    if(canParte){var pd2=parteData(sub,8);mkC(canParte,{type:'bar',data:{labels:pd2.labels,datasets:[{data:pd2.vals,backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});}
-    if(canPuesto){var pu2=cntBy(sub,'puesto_trabajo');var puk2=Object.keys(pu2).sort(function(a,b){return pu2[b]-pu2[a];}).slice(0,10);mkC(canPuesto,{type:'bar',data:{labels:puk2,datasets:[{data:puk2.map(function(k){return pu2[k];}),backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});}
-    if(canDias){var db=diasBuckets(sub);mkC(canDias,{type:'bar',data:{labels:db.labels,datasets:[{data:db.vals,backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});}
-    if(canDow){var dw2=dowData(sub);mkC(canDow,{type:'bar',data:{labels:dw2.labels,datasets:[{data:dw2.vals,backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});}
+    if(canLine) mkC(canLine,{type:'bar',data:{labels:allMonths2.slice(-24),datasets:[{data:allMonths2.slice(-24).map(function(k){return mm[k]||0;}),backgroundColor:clr,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'},maxRotation:45},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
+    if(canBP)  mkC(canBP, {type:'bar',data:{labels:bpKeys.map(bpName),datasets:[{data:bpData(sub),backgroundColor:bpKeys.map(function(_,i){return CLR[i%CLR.length];}),borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});
+    if(canParte){var pd2=parteData(sub,8);mkC(canParte,{type:'bar',data:{labels:pd2.labels,datasets:[{data:pd2.vals,backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});}
+    if(canPuesto){var pu2=cntBy(sub,'puesto_trabajo');var puk2=Object.keys(pu2).sort(function(a,b){return pu2[b]-pu2[a];}).slice(0,10);mkC(canPuesto,{type:'bar',data:{labels:puk2,datasets:[{data:puk2.map(function(k){return pu2[k];}),backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'600'}}}}}});}
+    if(canDias){var db=diasBuckets(sub);mkC(canDias,{type:'bar',data:{labels:db.labels,datasets:[{data:db.vals,backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});}
+    if(canDow){var dw2=dowData(sub);mkC(canDow,{type:'bar',data:{labels:dw2.labels,datasets:[{data:dw2.vals,backgroundColor:clr,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#333',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});}
     if(tbId){var tb=document.getElementById(tbId);tb.innerHTML='';sub.slice().sort(function(a,b){return(b['FECHA PRESENTACION']||'').localeCompare(a['FECHA PRESENTACION']||'');}).slice(0,80).forEach(function(r){var tr2=document.createElement('tr');tr2.innerHTML='<td class="tmono">'+(r['SINIESTRO']||'—')+'</td><td class="tmono">'+(r['RUT PACIENTE']||'—')+'</td><td>'+(r['FECHA PRESENTACION']||'—')+'</td><td style="font-size:.72rem">'+bpName(r['_BP'])+'</td><td style="font-size:.7rem">'+(r['PARTE LESIONADA']||'—')+'</td><td style="font-size:.7rem">'+(r['puesto_trabajo']||'—')+'</td><td>'+(r['GENERO_PACIENTE']||'—')+'</td><td style="color:'+(r['DIAS_PERDIDOS']>7?'var(--danger)':'var(--success)')+';font-weight:700">'+(r['DIAS_PERDIDOS']!=null?r['DIAS_PERDIDOS']:'—')+'</td>';tb.appendChild(tr2);});}
   }
 
@@ -2766,24 +2796,24 @@ function previewMensual() {
   // Tipo doughnut
   mkC('c-inf-tipo',{type:'doughnut',data:{labels:['AT','EP','Trayecto','No Ley','Otros'],datasets:[{data:[at.length,ep.length,tr.length,d.filter(function(r){return r['TIPO SINIESTRO']==='No Ley';}).length,d.filter(function(r){return!['Trabajo','Enfermedad Profesional','Trayecto','No Ley'].includes(r['TIPO SINIESTRO']);}).length],backgroundColor:['#3B82F6','#10B981','#F59E0B','#94A3B8','#E2E8F0'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#000',font:{size:10,weight:'600'},boxWidth:10,padding:6}}}}});
   // CTP/STP doughnut
-  mkC('c-inf-ctp',{type:'doughnut',data:{labels:['CTP','STP'],datasets:[{data:[ct.length,st.length],backgroundColor:['#8B5CF6','#06B6D4'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#000',font:{size:10,weight:'600'},boxWidth:10,padding:6}}}}});
+  mkC('c-inf-ctp',{type:'doughnut',data:{labels:['CTP','STP'],datasets:[{data:[ct.length,st.length],backgroundColor:['#E07B10','#13A538'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#000',font:{size:10,weight:'600'},boxWidth:10,padding:6}}}}});
   // BP bar
   var bpVals=bpKeys2.map(function(b){return d.filter(function(r){return r['_BP']===b;}).length;});
-  mkC('c-inf-bp',{type:'bar',data:{labels:bpKeys2.map(bpName),datasets:[{data:bpVals,backgroundColor:CLR,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
+  mkC('c-inf-bp',{type:'bar',data:{labels:bpKeys2.map(bpName),datasets:[{data:bpVals,backgroundColor:CLR,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
   // Parte bar
   var pm=cntBy(d,'PARTE LESIONADA'); var pk=Object.keys(pm).sort(function(a,b){return pm[b]-pm[a];}).slice(0,8);
-  mkC('c-inf-parte',{type:'bar',data:{labels:pk,datasets:[{data:pk.map(function(k){return pm[k];}),backgroundColor:'#6366F1',borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
+  mkC('c-inf-parte',{type:'bar',data:{labels:pk,datasets:[{data:pk.map(function(k){return pm[k];}),backgroundColor:'#185FA5',borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
   // AT CTP/STP
   var atCtp=at.filter(function(r){return r['CTP/STP']==='CTP';}).length;
   var atStp=at.filter(function(r){return r['CTP/STP']==='STP';}).length;
-  mkC('c-inf-at-ctp',{type:'bar',data:{labels:['CTP','STP'],datasets:[{data:[atCtp,atStp],backgroundColor:['#3B82F6','#93C5FD'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:10,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
+  mkC('c-inf-at-ctp',{type:'bar',data:{labels:['CTP','STP'],datasets:[{data:[atCtp,atStp],backgroundColor:['#13A538','#9FE1CB'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:10,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
   // EP bar by BP
   var epVals=bpKeys2.map(function(b){return ep.filter(function(r){return r['_BP']===b;}).length;}).filter(function(v,i){return ep.filter(function(r){return r['_BP']===bpKeys2[i];}).length>0;});
   var epBPs=bpKeys2.filter(function(b){return ep.some(function(r){return r['_BP']===b;});});
-  mkC('c-inf-ep',{type:'bar',data:{labels:epBPs.map(bpName),datasets:[{data:epBPs.map(function(b){return ep.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'#10B981',borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
+  mkC('c-inf-ep',{type:'bar',data:{labels:epBPs.map(bpName),datasets:[{data:epBPs.map(function(b){return ep.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'#13A538',borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
   // TR bar by BP
   var trBPs=bpKeys2.filter(function(b){return tr.some(function(r){return r['_BP']===b;});});
-  mkC('c-inf-tr',{type:'bar',data:{labels:trBPs.map(bpName),datasets:[{data:trBPs.map(function(b){return tr.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'#F59E0B',borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
+  mkC('c-inf-tr',{type:'bar',data:{labels:trBPs.map(bpName),datasets:[{data:trBPs.map(function(b){return tr.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'#E07B10',borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:8,weight:'700'}}}}}});
 
   // Table
   var tb=document.getElementById('tb-inf-preview'); tb.innerHTML='';
@@ -3104,27 +3134,27 @@ function previewInteranual() {
   mkC('c-ia-semanal',{type:'bar',data:{
     labels:allSems.map(function(x){return'Sem '+x.s;}),
     datasets:[
-      {label:String(a1),data:allSems.map(function(x){return x.v1;}),backgroundColor:'rgba(37,99,235,.8)',borderRadius:4,borderSkipped:false},
-      {label:String(a2),data:allSems.map(function(x){return x.v2;}),backgroundColor:'rgba(5,150,105,.75)',borderRadius:4,borderSkipped:false}
+      {label:String(a1),data:allSems.map(function(x){return x.v1;}),backgroundColor:'rgba(19,165,56,.85)',borderRadius:4,borderSkipped:false},
+      {label:String(a2),data:allSems.map(function(x){return x.v2;}),backgroundColor:'rgba(14,110,86,.75)',borderRadius:4,borderSkipped:false}
     ]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{position:'top',labels:{color:'#000',font:{size:10,weight:'700'},boxWidth:12,padding:10}}},
       scales:{x:{ticks:{color:'#000',font:{size:8,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
 
   // AT/EP/TR comparison bars
-  mkC('c-ia-at',{type:'bar',data:{labels:[String(a1),String(a2)],datasets:[{data:[at(d1),at(d2)],backgroundColor:['rgba(37,99,235,.8)','rgba(5,150,105,.75)'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:11,weight:'800'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
-  mkC('c-ia-ep',{type:'bar',data:{labels:[String(a1),String(a2)],datasets:[{data:[ep(d1),ep(d2)],backgroundColor:['rgba(37,99,235,.8)','rgba(5,150,105,.75)'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:11,weight:'800'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
-  mkC('c-ia-tr',{type:'bar',data:{labels:[String(a1),String(a2)],datasets:[{data:[tr(d1),tr(d2)],backgroundColor:['rgba(37,99,235,.8)','rgba(5,150,105,.75)'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#000',font:{size:11,weight:'800'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
+  mkC('c-ia-at',{type:'bar',data:{labels:[String(a1),String(a2)],datasets:[{data:[at(d1),at(d2)],backgroundColor:['rgba(37,99,235,.8)','rgba(5,150,105,.75)'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:11,weight:'800'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
+  mkC('c-ia-ep',{type:'bar',data:{labels:[String(a1),String(a2)],datasets:[{data:[ep(d1),ep(d2)],backgroundColor:['rgba(37,99,235,.8)','rgba(5,150,105,.75)'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:11,weight:'800'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
+  mkC('c-ia-tr',{type:'bar',data:{labels:[String(a1),String(a2)],datasets:[{data:[tr(d1),tr(d2)],backgroundColor:['rgba(37,99,235,.8)','rgba(5,150,105,.75)'],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},achsDatalabel:{}},scales:{x:{ticks:{color:'#000',font:{size:11,weight:'800'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
 
   // CTP/STP per year
-  mkC('c-ia-ctp1',{type:'doughnut',data:{labels:['CTP','STP'],datasets:[{data:[ct(d1),st2(d1)],backgroundColor:['#8B5CF6','#06B6D4'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'bottom',labels:{color:'#000',font:{size:9,weight:'700'},boxWidth:10,padding:6}}}}});
-  mkC('c-ia-ctp2',{type:'doughnut',data:{labels:['CTP','STP'],datasets:[{data:[ct(d2),st2(d2)],backgroundColor:['#8B5CF6','#06B6D4'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'bottom',labels:{color:'#000',font:{size:9,weight:'700'},boxWidth:10,padding:6}}}}});
+  mkC('c-ia-ctp1',{type:'doughnut',data:{labels:['CTP','STP'],datasets:[{data:[ct(d1),st2(d1)],backgroundColor:['#E07B10','#13A538'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'bottom',labels:{color:'#000',font:{size:9,weight:'700'},boxWidth:10,padding:6}}}}});
+  mkC('c-ia-ctp2',{type:'doughnut',data:{labels:['CTP','STP'],datasets:[{data:[ct(d2),st2(d2)],backgroundColor:['#E07B10','#13A538'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'bottom',labels:{color:'#000',font:{size:9,weight:'700'},boxWidth:10,padding:6}}}}});
 
   // BP comparison
   var bpKeys3=Object.keys(BP_NAMES).filter(function(b){return d1.some(function(r){return r['_BP']===b;})||d2.some(function(r){return r['_BP']===b;});});
   mkC('c-ia-bp',{type:'bar',data:{labels:bpKeys3.map(bpName),datasets:[
-    {label:String(a1),data:bpKeys3.map(function(b){return d1.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'rgba(37,99,235,.8)',borderRadius:4,borderSkipped:false},
-    {label:String(a2),data:bpKeys3.map(function(b){return d2.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'rgba(5,150,105,.75)',borderRadius:4,borderSkipped:false}
+    {label:String(a1),data:bpKeys3.map(function(b){return d1.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'rgba(19,165,56,.85)',borderRadius:4,borderSkipped:false},
+    {label:String(a2),data:bpKeys3.map(function(b){return d2.filter(function(r){return r['_BP']===b;}).length;}),backgroundColor:'rgba(14,110,86,.75)',borderRadius:4,borderSkipped:false}
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{color:'#000',font:{size:10,weight:'700'},boxWidth:12,padding:8}}},scales:{x:{ticks:{color:'#000',font:{size:8,weight:'700'},maxRotation:30},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
 
   // Tables
@@ -3543,7 +3573,7 @@ function renderDS67Monthly(p1f,p1t,p2f,p2t){
       scales:{x:{stacked:true,ticks:{color:'#334155',font:{size:8,weight:'600'},maxRotation:45},grid:{color:'#F1F5F9'}},y:{stacked:true,ticks:{color:'#334155',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
   var bpP1=bpKeys.map(function(b){return{b:b,v:sumPeriodRange(p1f,p1t,b)};}).filter(function(x){return x.v>0;}).sort(function(a,b){return b.v-a.v;});
   mkC('c-ds67-trend',{type:'bar',data:{labels:bpP1.map(function(x){return BP_NAMES[x.b]||x.b;}),datasets:[{data:bpP1.map(function(x){return x.v;}),backgroundColor:bpP1.map(function(_,i){return CLR[i%CLR.length];}),borderRadius:5,borderSkipped:false}]},
-    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},achsDatalabel:{}},
       scales:{x:{ticks:{color:'#334155',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#1E293B',font:{size:9,weight:'600'}}}}}});
 }
 
@@ -3993,9 +4023,9 @@ function renderKAM(){
   function mm(arr){var m={};arr.forEach(function(r){var k=(r['FECHA PRESENTACION']||'').substring(0,7);if(k)m[k]=(m[k]||0)+1;});return m;}
   var mAT=mm(at),mEP=mm(ep),mTR=mm(tr);
   mkC('c-km-trend',{type:'bar',data:{labels:months,datasets:[
-    {label:'AT',data:months.map(function(m){return mAT[m]||0;}),backgroundColor:'rgba(37,99,235,.85)',borderRadius:4,borderSkipped:false,stack:'s'},
-    {label:'EP',data:months.map(function(m){return mEP[m]||0;}),backgroundColor:'rgba(5,150,105,.8)',borderRadius:4,borderSkipped:false,stack:'s'},
-    {label:'Trayecto',data:months.map(function(m){return mTR[m]||0;}),backgroundColor:'rgba(217,119,6,.75)',borderRadius:4,borderSkipped:false,stack:'s'}
+    {label:'AT',data:months.map(function(m){return mAT[m]||0;}),backgroundColor:'rgba(19,165,56,.85)',borderRadius:4,borderSkipped:false,stack:'s'},
+    {label:'EP',data:months.map(function(m){return mEP[m]||0;}),backgroundColor:'rgba(14,110,86,.8)',borderRadius:4,borderSkipped:false,stack:'s'},
+    {label:'Trayecto',data:months.map(function(m){return mTR[m]||0;}),backgroundColor:'rgba(224,123,16,.75)',borderRadius:4,borderSkipped:false,stack:'s'}
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{color:'#000',font:{size:10,weight:'700'},boxWidth:12,padding:8}}},scales:{x:{stacked:true,ticks:{color:'#000',font:{size:9,weight:'600'},maxRotation:45},grid:{color:'#F1F5F9'}},y:{stacked:true,ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
 
   // Ranking BP with meta comparison
@@ -4041,8 +4071,8 @@ function renderKAM(){
   for(var m2=1;m2<=cM;m2++){msCY.push(dCY.filter(function(r){return r['MES']===m2;}).length);msPY.push(dPY.filter(function(r){return r['MES']===m2;}).length);}
   var mLbls=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'].slice(0,cM);
   mkC('c-km-interanual',{type:'line',data:{labels:mLbls,datasets:[
-    {label:String(cy2)+' AT',data:msCY,borderColor:'#2563EB',backgroundColor:'rgba(37,99,235,.1)',borderWidth:2.5,fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#2563EB'},
-    {label:String(py)+' AT',data:msPY,borderColor:'#94A3B8',backgroundColor:'transparent',borderWidth:2,borderDash:[5,4],tension:.4,pointRadius:3,pointBackgroundColor:'#94A3B8'}
+    {label:String(cy2)+' AT',data:msCY,borderColor:'#13A538',backgroundColor:'rgba(19,165,56,.1)',borderWidth:2.5,fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#13A538'},
+    {label:String(py)+' AT',data:msPY,borderColor:'#888780',backgroundColor:'transparent',borderWidth:2,borderDash:[5,4],tension:.4,pointRadius:3,pointBackgroundColor:'#888780'}
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{color:'#000',font:{size:10,weight:'700'},boxWidth:12,padding:8}}},scales:{x:{ticks:{color:'#000',font:{size:9,weight:'700'}},grid:{color:'#F1F5F9'}},y:{ticks:{color:'#000',font:{size:9,weight:'600'}},grid:{color:'#F1F5F9'}}}}});
 
   // Logros / alertas
